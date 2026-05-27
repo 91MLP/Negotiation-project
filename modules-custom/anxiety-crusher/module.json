@@ -1,0 +1,41 @@
+{
+  "id": "anxiety-crusher",
+  "group": "Wellness",
+  "name": "Anxiety Crusher",
+  "description": "Process anxiety through humor — generate mock toxic comment sections based on your stress tags, then crush them with absurd AI-powered transformations.",
+  "version": "1.0.0",
+  "author": "ARI",
+  "icon": "Zap",
+  "enabled": false,
+  "fullscreen": false,
+  "menuPriority": 50,
+  "permissions": {
+    "database": true,
+    "api": true,
+    "dashboard": true
+  },
+  "routes": [
+    {
+      "path": "/anxiety-crusher",
+      "label": "Anxiety Crusher",
+      "icon": "Zap",
+      "sidebarPosition": "main"
+    }
+  ],
+  "dependencies": {
+    "modules": [],
+    "coreFeatures": []
+  },
+  "database": {
+    "tables": ["anxiety_tags", "anxiety_sessions", "anxiety_comments", "anxiety_crushes"]
+  },
+  "dashboard": {
+    "widgets": false,
+    "statCards": ["./components/dashboard-stat-card.tsx"]
+  },
+  "topBarIcon": {
+    "icon": "Zap",
+    "route": "/anxiety-crusher",
+    "tooltip": "Anxiety Crusher"
+  }
+}

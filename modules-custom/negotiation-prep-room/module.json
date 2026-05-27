@@ -1,0 +1,44 @@
+{
+  "id": "negotiation-prep-room",
+  "group": "Career",
+  "name": "Negotiation Prep Room",
+  "description": "AI-powered negotiation preparation for salary, freelance rate, car purchase, lease and more. Get your BATNA, anchor point, counteroffers, and scripts in seconds.",
+  "version": "1.0.0",
+  "author": "Custom",
+  "icon": "Scale",
+  "enabled": false,
+  "fullscreen": false,
+  "menuPriority": 50,
+  "permissions": {
+    "database": true,
+    "api": true,
+    "dashboard": true
+  },
+  "routes": [
+    {
+      "path": "/negotiation-prep-room",
+      "label": "Negotiation",
+      "icon": "Scale",
+      "sidebarPosition": "main"
+    }
+  ],
+  "dependencies": {
+    "modules": [],
+    "coreFeatures": []
+  },
+  "database": {
+    "tables": ["negotiation_sessions"]
+  },
+  "dashboard": {
+    "widgets": false,
+    "statCards": ["./components/dashboard-stat-card.tsx"]
+  },
+  "topBarIcon": {
+    "icon": "Scale",
+    "route": "/negotiation-prep-room",
+    "tooltip": "Negotiation Prep Room"
+  },
+  "submenu": {
+    "component": "./components/sidebar-submenu.tsx"
+  }
+}
