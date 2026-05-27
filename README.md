@@ -1,4 +1,30 @@
-# ARI.Software
+# Negotiation Prep Room
+
+**AI-powered negotiation preparation — salary, freelance rate, car purchase, lease, and more.**
+
+## 🎬 Demo Video
+
+**[▶ Watch the demo on Veed.io](https://www.veed.io/view/8746bf8b-c1bb-4e53-8c7f-3c31a5c8808c?source=editor&panel=share)**
+
+---
+
+## What it does
+
+Enter the context of any negotiation. AI generates your complete prep kit in seconds:
+
+- **BATNA assessment** — how strong is your walk-away position
+- **Anchor point** — the specific number to open with, and why
+- **3 likely counteroffers** — with word-for-word scripts for each
+- **Closing script** — how to seal the deal once you're close
+- **Red flags** — tactics to watch out for
+
+Set an **aggressiveness slider** (Collaborative → Hardball) to calibrate every script to your style.
+
+Log your outcome after the negotiation (won / partial / lost / no-deal) and track your win rate over time.
+
+---
+
+## Built on ARI.Software
 
 **Premier Personal Productivity.**
 
