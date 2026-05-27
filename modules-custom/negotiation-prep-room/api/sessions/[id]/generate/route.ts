@@ -15,6 +15,14 @@ const TYPE_LABELS: Record<string, string> = {
   other: 'negotiation',
 }
 
+const AGGRESSIVENESS_DESCRIPTIONS: Record<number, string> = {
+  1: 'Collaborative (1/5) — prioritize the relationship, be warm and flexible, aim for a win-win, soften scripts with empathy and openness',
+  2: 'Friendly-firm (2/5) — polite but confident, hold your position without pressure tactics, focus on mutual benefit',
+  3: 'Balanced (3/5) — professional and assertive, use principled negotiation, stand firm on key points while remaining reasonable',
+  4: 'Assertive (4/5) — push hard for your number, use strategic silence and anchoring, make concessions slowly and reluctantly',
+  5: 'Hardball (5/5) — maximize every dollar, use high anchors, create urgency, make them work for every concession — still ethical but no softening',
+}
+
 function extractJson(text: string): string {
   // Strip markdown code fences
   const stripped = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim()
@@ -49,6 +57,9 @@ export async function POST(
     const ctx = session.context as NegotiationContext
     const typeLabel = TYPE_LABELS[session.type] || 'negotiation'
 
+    const aggressiveness = (ctx.aggressiveness as number) || 3
+    const styleGuide = AGGRESSIVENESS_DESCRIPTIONS[aggressiveness] ?? AGGRESSIVENESS_DESCRIPTIONS[3]
+
     const prompt = `You are an expert negotiation coach. Analyze this ${typeLabel} and provide a complete preparation kit.
 
 NEGOTIATION DETAILS:
@@ -57,6 +68,9 @@ NEGOTIATION DETAILS:
 - Their likely opening position: ${ctx.their_likely_position}
 ${ctx.deadline ? `- Deadline/time pressure: ${ctx.deadline}` : ''}
 ${ctx.additional_notes ? `- Additional context: ${ctx.additional_notes}` : ''}
+
+NEGOTIATION STYLE: ${styleGuide}
+Calibrate ALL scripts, the anchor point, and tactical advice to this exact style. The tone and language of every script must reflect this aggressiveness level.
 
 Respond with ONLY a valid JSON object. No markdown, no explanation, no text before or after. Use this exact structure:
 {

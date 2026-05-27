@@ -9,9 +9,18 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Slider } from '@/components/ui/slider'
 import { Loader2, Scale, Sparkles, ArrowLeft } from 'lucide-react'
 import { useCreateSession, useGenerateAnalysis } from '../../hooks/use-negotiation'
 import type { NegotiationType, AiAnalysis } from '../../types'
+
+const AGGRESSIVENESS_LABELS: Record<number, { label: string; description: string; color: string }> = {
+  1: { label: 'Collaborative',  description: 'Warm, flexible, relationship-first',      color: 'text-blue-500' },
+  2: { label: 'Friendly-firm',  description: 'Polite but confident',                    color: 'text-teal-500' },
+  3: { label: 'Balanced',       description: 'Assertive, principled negotiation',       color: 'text-yellow-600' },
+  4: { label: 'Assertive',      description: 'Push hard, concede slowly',               color: 'text-orange-500' },
+  5: { label: 'Hardball',       description: 'Maximize every dollar, no softening',     color: 'text-red-500' },
+}
 
 const TYPE_OPTIONS: { value: NegotiationType; label: string; description: string }[] = [
   { value: 'salary',    label: 'Salary',         description: 'Job offer or raise negotiation' },
@@ -40,6 +49,7 @@ export default function NewPrepPage() {
   const [theirPosition, setTheirPosition] = useState('')
   const [deadline, setDeadline] = useState('')
   const [notes, setNotes] = useState('')
+  const [aggressiveness, setAggressiveness] = useState(3)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -59,6 +69,7 @@ export default function NewPrepPage() {
           their_likely_position: theirPosition.trim(),
           deadline: deadline.trim() || undefined,
           additional_notes: notes.trim() || undefined,
+          aggressiveness,
         },
       })
 
@@ -98,7 +109,12 @@ export default function NewPrepPage() {
 
         <div>
           <h1 className="text-3xl font-medium">{title}</h1>
-          <p className="text-sm text-muted-foreground mt-1">Your AI-generated negotiation prep kit</p>
+          <div className="flex items-center gap-2 mt-1">
+            <p className="text-sm text-muted-foreground">Your AI-generated negotiation prep kit</p>
+            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${AGGRESSIVENESS_LABELS[aggressiveness].color} border-current`}>
+              {AGGRESSIVENESS_LABELS[aggressiveness].label}
+            </span>
+          </div>
         </div>
 
         {/* BATNA Assessment */}
@@ -281,6 +297,30 @@ export default function NewPrepPage() {
             placeholder="Any other relevant details..."
             rows={3}
           />
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <Label>Negotiation style</Label>
+            <span className={`text-sm font-semibold ${AGGRESSIVENESS_LABELS[aggressiveness].color}`}>
+              {AGGRESSIVENESS_LABELS[aggressiveness].label}
+            </span>
+          </div>
+          <Slider
+            min={1}
+            max={5}
+            step={1}
+            value={[aggressiveness]}
+            onValueChange={([v]) => setAggressiveness(v)}
+            className="w-full"
+          />
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>Collaborative</span>
+            <span className={`${AGGRESSIVENESS_LABELS[aggressiveness].color}`}>
+              {AGGRESSIVENESS_LABELS[aggressiveness].description}
+            </span>
+            <span>Hardball</span>
+          </div>
         </div>
 
         <Button type="submit" className="w-full" size="lg" disabled={createSession.isPending || generateAnalysis.isPending}>

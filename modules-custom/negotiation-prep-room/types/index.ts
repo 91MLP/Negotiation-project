@@ -8,6 +8,7 @@ export interface NegotiationContext {
   their_likely_position: string  // what you expect them to open with
   deadline?: string              // any time pressure
   additional_notes?: string
+  aggressiveness: number         // 1 (collaborative) to 5 (hardball)
 }
 
 export interface Counteroffer {

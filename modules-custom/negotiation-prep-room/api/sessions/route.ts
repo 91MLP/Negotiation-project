@@ -11,6 +11,7 @@ const ContextSchema = z.object({
   their_likely_position: z.string({ required_error: 'Their likely position is required' }).min(1, 'Required').max(500),
   deadline: z.string().max(200).optional(),
   additional_notes: z.string().max(1000).optional(),
+  aggressiveness: z.number().int().min(1, 'Aggressiveness must be 1-5').max(5, 'Aggressiveness must be 1-5').default(3),
 })
 
 const CreateSessionSchema = z.object({
